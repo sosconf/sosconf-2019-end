@@ -13,7 +13,10 @@
 
 # python bytecode cahe file
 *.pyc
-__pycache__
+**/__pycache__/
 
 # pyenv settings
 .python-version
+
+# macos floder info
+.DS_Store
