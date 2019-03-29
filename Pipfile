@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 django = "*"
 django-mama-cas = "*"
+django-sslserver = "*"
+requests = "*"
 
 [requires]
 python_version = "3.6"
