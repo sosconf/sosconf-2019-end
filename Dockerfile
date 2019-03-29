@@ -7,8 +7,7 @@ RUN pip3 install -q --no-cache-dir -r requirements.txt -t ./
 COPY . .
 
 
-# FROM gcr.io/distroless/python3
-FROM python:3
+FROM gcr.io/distroless/python3
 
 LABEL \
   org.label-schema.schema-version="1.0" \
@@ -21,7 +20,7 @@ ENV SERVERURL ""
 WORKDIR /app
 COPY --from=builder /usr/src/app/ .
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:9000"]
+CMD ["manage.py", "runserver", "0.0.0.0:9000"]
 
 ARG BUILD_DATE
 ARG VCS_REF
