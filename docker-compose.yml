@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  sosconf_backend:
+    image: catone/sosconf:end
+    networks:
+      - sosconf_net
+    deploy:
+      mode: global
+    ports:
+      - 9000:9000
+
+  sosconf_end_nginx:
+    image: catone/sosconf:nginx-end
+    networks:
+      - sosconf_net
+    deploy:
+      mode: global
+    volumes:
+      - /etc/letsencrypt/archive/:/etc/letsencrypt/archive/
+      - /etc/letsencrypt/live/api.sosconf.org/:/etc/letsencrypt/live/api.sosconf.org/
+    ports:
+      - 80:80
+      - 443:443
+
+  # sosconf_mysql:
+  #   image: mysql:latest
+  #   networks:
+  #     - sosconf_net
+  #   deploy:
+  #     mode: global
+
+networks:
+  sosconf_net:
+
