@@ -19,3 +19,28 @@ def get_cas_userinfo(login_ticket : str, cas_url='https://my.hexang.com/cas', ve
         ticket = login_ticket
     )
     return requests.request('GET', url).json()
+
+def is_cas_login(login_ticket : str, cas_url='https://my.hexang.com/cas', service_url = 'http://api.sosconf.org/cas_proc'):
+    """
+    同CAS通讯, 验证ticket有效.
+
+    :param login_ticket: 登录成功返回的ticket票据
+
+    :param cas_url: cas认证接口地址
+
+    :param service_url: 需要访问的服务接口地址
+
+    :return: yes<LF> or no<LF>
+    """
+    import requests
+    import urllib.parse
+    service_encode = urllib.parse.urlencode({'service' : verify_url})
+    url = '{cas_url}/validate?{service_encode}&ticket={ticket}'.format(
+        cas_url = cas_url,
+        service_encode = service_encode,
+        ticket = login_ticket
+    )
+    print(requests.request('GET', url))
+    if requests.request('GET', url) == 'yes':
+        return True
+    return False

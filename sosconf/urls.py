@@ -21,6 +21,7 @@ urlpatterns = [
     path('login', views.login),
     path('logout', views.logout),
     path('cas_proc', views.cas_proc),
+    path('profile', views.user_profile),
     path('cas/', include('mama_cas.urls')),
 ]
 
