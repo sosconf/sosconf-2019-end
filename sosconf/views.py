@@ -9,15 +9,15 @@ def login(request):
     cas_url = 'https://my.hexang.com/cas'
     verify_url = 'http://api.sosconf.org/cas_proc'
     return redirect('{cas_url}/login?service={verify_url}'.format(
-        cas_url = cas_url,
-        verify_url = verify_url
-    ))
+        cas_url=cas_url, verify_url=verify_url))
+
 
 def logout(request):
     cas_url = 'https://my.hexang.com/cas'
-    return redirect('{cas_url}/logout'.format(cas_url = cas_url))
+    return redirect('{cas_url}/logout'.format(cas_url=cas_url))
 
-@require_http_methods(['GET','POST'])
+
+@require_http_methods(['GET', 'POST'])
 def cas_proc(request):
     cas_ticket = None
     if request.method == 'GET':
@@ -42,4 +42,3 @@ def user_profile(request):
         if is_ticket_validity:
             return HttpResponse('valid')
         return HttpResponse('valid error')
-
