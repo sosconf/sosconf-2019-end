@@ -28,3 +28,16 @@ def cas_proc(request):
         if cas_json.get('logoutRequest'):
             print('Logout')
             return HttpResponse('Logout')
+
+
+@require_http_methods(['GET'])
+def user_profile(request):
+    cas_ticket = None
+    if request.method == 'GET':
+        cas_ticket = request.GET.get('ticket')
+        is_ticket_validity = is_cas_login(cas_ticket)
+        # print(userinfo['serviceResponse']['authenticationSuccess']['user'])
+        if is_ticket_validity:
+            return HttpResponse('valid')
+        return HttpResponse('valid error')
+
