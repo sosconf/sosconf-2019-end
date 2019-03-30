@@ -26,4 +26,3 @@ urlpatterns = [
     path('cas/', include('mama_cas.urls')),
     path('graphql/', GraphQLView.as_view(graphiql=True)),
 ]
-
