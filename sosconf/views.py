@@ -2,10 +2,12 @@ from django.views.decorators.http import require_http_methods
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from .utils import get_cas_userinfo
+from .utils import is_cas_login
+
 
 def login(request):
     cas_url = 'https://my.hexang.com/cas'
-    verify_url = 'http://newtorn.fastfuck.me/cas_proc'
+    verify_url = 'http://api.sosconf.org/cas_proc'
     return redirect('{cas_url}/login?service={verify_url}'.format(
         cas_url = cas_url,
         verify_url = verify_url
@@ -28,3 +30,16 @@ def cas_proc(request):
         if cas_json.get('logoutRequest'):
             print('Logout')
             return HttpResponse('Logout')
+
+
+@require_http_methods(['GET'])
+def user_profile(request):
+    cas_ticket = None
+    if request.method == 'GET':
+        cas_ticket = request.GET.get('ticket')
+        is_ticket_validity = is_cas_login(cas_ticket)
+
+        if is_ticket_validity:
+            return HttpResponse('valid')
+        return HttpResponse('valid error')
+
