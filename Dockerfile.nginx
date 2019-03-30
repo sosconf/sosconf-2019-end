@@ -1,0 +1,18 @@
+FROM nginx:stable-alpine
+
+LABEL \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.name="sosconf-end-nginx" \
+  org.label-schema.vcs-url="https://github.com/sosconf/sosconf-2019-end" \
+  maintainer="sosconf tech Team <hi@sosconf.org>"
+
+COPY ./nginx.conf /etc/nginx/
+EXPOSE 80
+EXPOSE 443
+
+ARG BUILD_DATE
+ARG VCS_REF
+LABEL \
+  org.label-schema.build-date=$BUILD_DATE \
+  org.label-schema.vcs-ref=$VCS_REF
+
