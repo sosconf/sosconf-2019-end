@@ -1,4 +1,4 @@
-def get_cas_userinfo(login_ticket : str, cas_url='https://my.hexang.com/cas', verify_url = 'http://newtorn.fastfuck.me/cas_proc'):
+def get_cas_userinfo(login_ticket : str, cas_url='https://my.hexang.com/cas', verify_url = 'http://api.sosconf.org/cas_proc'):
     """
     获取CAS登陆的用户信息.
 
