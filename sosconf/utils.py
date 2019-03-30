@@ -44,7 +44,7 @@ def is_cas_login(login_ticket : str, cas_url='https://my.hexang.com/cas', servic
     # logger = logging.getLogger()
     # logger.setLevel(logging.INFO)
     # logger.info(str(requests.request('GET', url)))
-    return str(requests.request('GET', url).context())
+    return str(requests.request('GET', url).text)
     # if requests.request('GET', url) == 'yes':
     #     return True
     # return False
