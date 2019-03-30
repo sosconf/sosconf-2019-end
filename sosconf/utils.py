@@ -34,7 +34,7 @@ def is_cas_login(login_ticket : str, cas_url='https://my.hexang.com/cas', servic
     """
     import requests
     import urllib.parse
-    service_encode = urllib.parse.urlencode({'service' : verify_url})
+    service_encode = urllib.parse.urlencode({'service' : service_url})
     url = '{cas_url}/validate?{service_encode}&ticket={ticket}'.format(
         cas_url = cas_url,
         service_encode = service_encode,
