@@ -2,6 +2,8 @@ from django.views.decorators.http import require_http_methods
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from .utils import get_cas_userinfo
+from .utils import is_cas_login
+
 
 def login(request):
     cas_url = 'https://my.hexang.com/cas'
