@@ -20,7 +20,7 @@ def get_cas_userinfo(login_ticket : str, cas_url='https://my.hexang.com/cas', ve
     )
     return requests.request('GET', url).json()
 
-def is_cas_login(login_ticket : str, cas_url='https://my.hexang.com/cas', service_url = 'http://api.sosconf.org/cas_proc'):
+def is_cas_login(login_ticket : str, cas_url='https://my.hexang.com/cas'):
     """
     同CAS通讯, 验证ticket有效.
 
@@ -28,23 +28,21 @@ def is_cas_login(login_ticket : str, cas_url='https://my.hexang.com/cas', servic
 
     :param cas_url: cas认证接口地址
 
-    :param service_url: 需要访问的服务接口地址
-
-    :return: yes<LF> or no<LF>
+    :return: yes username or no username
     """
     import requests
     import urllib.parse
+    service_url = 'http://api.sosconf.org/cas_proc'
     service_encode = urllib.parse.urlencode({'service' : service_url})
     url = '{cas_url}/validate?{service_encode}&ticket={ticket}'.format(
         cas_url = cas_url,
         service_encode = service_encode,
         ticket = login_ticket
     )
-    # import logging
-    # logger = logging.getLogger()
-    # logger.setLevel(logging.INFO)
-    # logger.info(str(requests.request('GET', url)))
-    return str(requests.request('GET', url).text)
-    # if requests.request('GET', url) == 'yes':
-    #     return True
-    # return False
+
+    is_login = requests.request('GET', url).text
+
+    if ' ' in is_login and len(is_login) > 1:
+        if is_login.split(' ')[0] == 'yes':
+            return True
+    return False

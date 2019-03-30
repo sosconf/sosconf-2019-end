@@ -38,8 +38,8 @@ def user_profile(request):
     if request.method == 'GET':
         cas_ticket = request.GET.get('ticket')
         is_ticket_validity = is_cas_login(cas_ticket)
-        # print(userinfo['serviceResponse']['authenticationSuccess']['user'])
-        # if is_ticket_validity:
-        #     return HttpResponse('valid')
-        return HttpResponse(is_ticket_validity)
+
+        if is_ticket_validity:
+            return HttpResponse('valid')
+        return HttpResponse('valid error')
 

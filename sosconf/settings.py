@@ -40,8 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mama_cas',
     'sslserver', # https support
+    'graphene_django',
+    'user_info'
 ]
 
+GRAPHENE = {
+    'SCHEMA': 'sosconf.schema.schema'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
