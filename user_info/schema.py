@@ -4,39 +4,48 @@ import graphene
 class profileSchema(graphene.ObjectType):
     userId = graphene.String()
     nickname = graphene.String()
-    kind = graphene.String()
+    groupKind = graphene.String()
     skill = graphene.String()
     lang = graphene.String()
     userSex = graphene.String()
     userPhoto = graphene.String()
+    email = graphene.String()
+    description = graphene.String()
 
 
 class updateUserProfile(graphene.Mutation):
     class Arguments:
         nickname = graphene.String()
-        kind = graphene.String()
+        groupKind = graphene.String()
         skill = graphene.String()
         lang = graphene.String()
         userSex = graphene.String()
         userPhoto = graphene.String()
+        email = graphene.String()
+        description = graphene.String()
 
     status = graphene.Boolean()
     err = graphene.String()
 
-    def mutate(self, info, nickname, kind, skill, lang, userSex, userPhoto):
+    def mutate(self, info, nickname, groupKind, skill, lang, userSex,
+               userPhoto, email, description):
 
         nickname = graphene.String()
-        kind = graphene.String()
+        groupKind = graphene.String()
         skill = graphene.String()
         lang = graphene.String()
         userSex = graphene.String()
         userPhoto = graphene.String()
+        email = graphene.String()
+        description = graphene.String()
 
         data = {
             'nickname': nickname,
-            'kind': kind,
+            'kind': groupKind,
             'lang': lang,
             'userSex': userSex,
+            'email': email,
+            'description': description,
             'userPhoto': userPhoto
         }
         print(data)
@@ -59,11 +68,13 @@ class Query(graphene.ObjectType):
             userId=ticket + "asada",
             userSex="male",
             nickname='Cat.1',
-            kind="Tech",
+            groupKind="Tech",
             skill="Coding",
             userPhoto=
             "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png",
-            lang="EN")
+            lang="EN",
+            email='cat@gansi.me',
+            description='A good boy!')
 
 
 class Mutation(graphene.ObjectType):
