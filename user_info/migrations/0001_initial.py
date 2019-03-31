@@ -8,8 +8,7 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
@@ -47,8 +46,16 @@ class Migration(migrations.Migration):
                 ('skill', models.CharField(max_length=32)),
                 ('email', models.CharField(max_length=320)),
                 ('description', models.CharField(max_length=72)),
-                ('groupKind', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='users', to='user_info.GroupKind')),
-                ('lang', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='users', to='user_info.Lang')),
+                ('groupKind',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     related_name='users',
+                     to='user_info.GroupKind')),
+                ('lang',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.CASCADE,
+                     related_name='users',
+                     to='user_info.Lang')),
             ],
         ),
     ]

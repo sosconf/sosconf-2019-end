@@ -13,7 +13,6 @@ class profileSchema(graphene.ObjectType):
     description = graphene.String()
 
 
-
 class updateUserProfile(graphene.Mutation):
     class Arguments:
         nickname = graphene.String()
@@ -28,7 +27,8 @@ class updateUserProfile(graphene.Mutation):
     status = graphene.Boolean()
     err = graphene.String()
 
-    def mutate(self, info, nickname, groupKind, skill, lang, userSex, userPhoto, email, description):
+    def mutate(self, info, nickname, groupKind, skill, lang, userSex,
+               userPhoto, email, description):
 
         nickname = graphene.String()
         groupKind = graphene.String()
@@ -64,7 +64,17 @@ class Query(graphene.ObjectType):
 
     def resolve_userProfile(self, info, ticket):
         # TODO 增加根据ticket得到相关用户信息的逻辑
-        return profileSchema(userId=ticket+"asada", userSex="male", nickname='Cat.1', groupKind="Tech", skill="Coding", userPhoto="http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png", lang="EN", email='cat@gansi.me', description='A good boy!')
+        return profileSchema(
+            userId=ticket + "asada",
+            userSex="male",
+            nickname='Cat.1',
+            groupKind="Tech",
+            skill="Coding",
+            userPhoto=
+            "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png",
+            lang="EN",
+            email='cat@gansi.me',
+            description='A good boy!')
 
 
 class Mutation(graphene.ObjectType):

@@ -51,4 +51,3 @@ class Skill(models.Model):
     sname = models.CharField(max_length=32, unique=True)
     desciption = models.TextField()
 # # Create your models here.
-
