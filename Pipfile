@@ -10,7 +10,9 @@ django = "*"
 django-mama-cas = "*"
 django-sslserver = "*"
 requests = "*"
+graphene = "*"
 graphene-django = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.6"
