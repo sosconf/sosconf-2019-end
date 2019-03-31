@@ -50,3 +50,5 @@ class Skill(models.Model):
     sid = models.AutoField(primary_key=True)
     sname = models.CharField(max_length=32, unique=True)
     desciption = models.TextField()
+# # Create your models here.
+

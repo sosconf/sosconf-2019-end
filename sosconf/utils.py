@@ -1,4 +1,6 @@
-def get_cas_userinfo(login_ticket : str, cas_url='https://my.hexang.com/cas', verify_url = 'http://api.sosconf.org/cas_proc'):
+def get_cas_userinfo(login_ticket: str,
+                     cas_url='https://my.hexang.com/cas',
+                     verify_url='http://api.sosconf.org/cas_proc'):
     """
     获取CAS登陆的用户信息.
 
@@ -12,15 +14,13 @@ def get_cas_userinfo(login_ticket : str, cas_url='https://my.hexang.com/cas', ve
     """
     import requests
     import urllib.parse
-    service_encode = urllib.parse.urlencode({'service' : verify_url})
+    service_encode = urllib.parse.urlencode({'service': verify_url})
     url = '{cas_url}/serviceValidate?{service_encode}&ticket={ticket}&format=json'.format(
-        cas_url = cas_url,
-        service_encode = service_encode,
-        ticket = login_ticket
-    )
+        cas_url=cas_url, service_encode=service_encode, ticket=login_ticket)
     return requests.request('GET', url).json()
 
-def is_cas_login(login_ticket : str, cas_url='https://my.hexang.com/cas'):
+
+def is_cas_login(login_ticket: str, cas_url='https://my.hexang.com/cas'):
     """
     同CAS通讯, 验证ticket有效.
 
@@ -33,12 +33,9 @@ def is_cas_login(login_ticket : str, cas_url='https://my.hexang.com/cas'):
     import requests
     import urllib.parse
     service_url = 'http://api.sosconf.org/cas_proc'
-    service_encode = urllib.parse.urlencode({'service' : service_url})
+    service_encode = urllib.parse.urlencode({'service': service_url})
     url = '{cas_url}/validate?{service_encode}&ticket={ticket}'.format(
-        cas_url = cas_url,
-        service_encode = service_encode,
-        ticket = login_ticket
-    )
+        cas_url=cas_url, service_encode=service_encode, ticket=login_ticket)
 
     is_login = requests.request('GET', url).text
 

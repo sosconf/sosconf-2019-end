@@ -19,7 +19,6 @@ pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -29,7 +28,9 @@ SECRET_KEY = 'vt970^4f1kxax-y)l5#051r0_m4qg^v8m^fnzfw70hxc^-h%o@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = [
+    '*',
+]
 
 # https redirect
 SECURE_SSL_REDIRECT = False
@@ -43,14 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mama_cas',
-    'sslserver', # https support
+    'sslserver',  # https support
     'graphene_django',
     'user_info'
 ]
 
-GRAPHENE = {
-    'SCHEMA': 'sosconf.schema.schema'
-}
+GRAPHENE = {'SCHEMA': 'sosconf.schema.schema'}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,12 +63,12 @@ MIDDLEWARE = [
 
 MAMA_CAS_SERVICES = [
     {
-    'SERVICE': 'https://my.hexang.com/cas/',
-    'CALLBACKS': [
-        'mama_cas.callbacks.user_model_attributes',
-    ],},
+        'SERVICE': 'https://my.hexang.com/cas/',
+        'CALLBACKS': [
+            'mama_cas.callbacks.user_model_attributes',
+        ],
+    },
 ]
-
 
 ROOT_URLCONF = 'sosconf.urls'
 
@@ -91,7 +90,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sosconf.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -108,25 +106,27 @@ DATABASES = {
     # }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -140,7 +140,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

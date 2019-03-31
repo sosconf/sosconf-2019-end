@@ -1,7 +1,6 @@
 import graphene
 
 
-
 class profileSchema(graphene.ObjectType):
     userId = graphene.String()
     nickname = graphene.String()
@@ -12,6 +11,7 @@ class profileSchema(graphene.ObjectType):
     userPhoto = graphene.String()
     email = graphene.String()
     description = graphene.String()
+
 
 
 class updateUserProfile(graphene.Mutation):
@@ -44,9 +44,9 @@ class updateUserProfile(graphene.Mutation):
             'kind': groupKind,
             'lang': lang,
             'userSex': userSex,
-            'userPhoto': userPhoto,
             'email': email,
             'description': description,
+            'userPhoto': userPhoto
         }
         print(data)
         # status = data['status']
@@ -54,10 +54,10 @@ class updateUserProfile(graphene.Mutation):
         return updateUserProfile(status=True, err="Success")
 
 
-
 class Query(graphene.ObjectType):
     test = graphene.String(test=graphene.String())
-    userProfile = graphene.Field(profileSchema, ticket=graphene.String(required=True))
+    userProfile = graphene.Field(
+        profileSchema, ticket=graphene.String(required=True))
 
     def resolve_test(self, info, test):
         return 'hello world'
@@ -69,10 +69,9 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     writeUserProfile = updateUserProfile.Field()
+
     def resolve_writeUserProfile(self, info):
         return updateUserProfile
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
-
-
