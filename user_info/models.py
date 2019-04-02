@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class User(models.Model):
     """
     用户信息模型
@@ -9,9 +10,11 @@ class User(models.Model):
     nickname = models.CharField(max_length=64)
     userSex = models.CharField(max_length=6)
     userPhoto = models.CharField(max_length=1000)
-    groupKind = models.ForeignKey('GroupKind', on_delete=models.CASCADE, related_name='users')
+    groupKind = models.ForeignKey(
+        'GroupKind', on_delete=models.CASCADE, related_name='users')
     skill = models.CharField(max_length=32)
-    lang = models.ForeignKey('Lang', on_delete=models.CASCADE, related_name='users')
+    lang = models.ForeignKey(
+        'Lang', on_delete=models.CASCADE, related_name='users')
     email = models.CharField(max_length=320)
     description = models.CharField(max_length=72)
 
@@ -50,4 +53,6 @@ class Skill(models.Model):
     sid = models.AutoField(primary_key=True)
     sname = models.CharField(max_length=32, unique=True)
     desciption = models.TextField()
+
+
 # # Create your models here.
