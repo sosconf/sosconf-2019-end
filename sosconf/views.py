@@ -30,8 +30,8 @@ def cas_proc(request):
         userinfo = get_cas_userinfo(cas_ticket)
         HttpResponse.setdefault("ticket", cas_ticket)
         # print(userinfo['serviceResponse']['authenticationSuccess']['user'])
-        return redirect(
-            '{sosconf_url}'.format(sosconf_url="https://sosconf.org"))
+        return redirect('{sosconf_url}/?ticket={ticket}'.format(
+            sosconf_url="https://sosconf.org", ticket=cas_ticket))
     elif request.method == 'POST':
         cas_json = request.POST
         if cas_json.get('logoutRequest'):

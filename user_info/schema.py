@@ -1,4 +1,7 @@
 import graphene
+import sys
+sys.path.append('..')
+from sosconf.utils import is_cas_login
 
 
 class profileSchema(graphene.ObjectType):
@@ -11,6 +14,8 @@ class profileSchema(graphene.ObjectType):
     userPhoto = graphene.String()
     email = graphene.String()
     description = graphene.String()
+    status = graphene.String()
+    err = graphene.String()
 
 
 class updateUserProfile(graphene.Mutation):
@@ -64,17 +69,22 @@ class Query(graphene.ObjectType):
 
     def resolve_userProfile(self, info, ticket):
         # TODO 增加根据ticket得到相关用户信息的逻辑
-        return profileSchema(
-            userId=ticket + "asada",
-            userSex="male",
-            nickname='Cat.1',
-            groupKind="Tech",
-            skill="Coding",
-            userPhoto=
-            "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png",
-            lang="EN",
-            email='cat@gansi.me',
-            description='A good boy!')
+        if is_cas_login(ticket):
+            return profileSchema(
+                userId=ticket,
+                userSex="male",
+                nickname='Cat.1',
+                groupKind="Tech",
+                skill="Coding",
+                userPhoto=
+                "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png",
+                lang="EN",
+                email='cat@gansi.me',
+                description='A good boy!',
+                err="Success",
+                status=True)
+        else:
+            return profileSchema(err="Ticket error", status=False)
 
 
 class Mutation(graphene.ObjectType):
