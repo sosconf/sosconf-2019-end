@@ -39,9 +39,6 @@ def user_profile(request):
         cas_ticket = request.GET.get('ticket')
         is_ticket_validity = is_cas_login(cas_ticket)
 
-        # if is_ticket_validity:
-        #     return HttpResponse('valid')
-        # return HttpResponse('valid error')
-        returnValue = is_ticket_validity.split(
-            ' ')[0] + "||" + is_ticket_validity
-        return HttpResponse(returnValue)
+        if is_ticket_validity:
+            return HttpResponse('valid')
+        return HttpResponse('valid error')
