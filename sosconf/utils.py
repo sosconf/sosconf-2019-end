@@ -38,8 +38,8 @@ def is_cas_login(login_ticket: str, cas_url='https://my.hexang.com/cas'):
         cas_url=cas_url, service_encode=service_encode, ticket=login_ticket)
 
     is_login = requests.request('GET', url).text
-    # if ' ' in is_login and len(is_login) > 1:
-    #     if is_login.split(' ')[0] == 'yes':
-    #         return True
-    # return False
-    return is_login
+
+    if len(is_login) > 1:
+        if 'yes' in str(is_login)[:4]:
+            return True
+    return False
