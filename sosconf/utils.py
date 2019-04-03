@@ -42,4 +42,4 @@ def is_cas_login(login_ticket: str, cas_url='https://my.hexang.com/cas'):
     #     if is_login.split(' ')[0] == 'yes':
     #         return True
     # return False
-    return is_login.split(' ')[0]
+    return is_login
