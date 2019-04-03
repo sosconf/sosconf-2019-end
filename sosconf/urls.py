@@ -22,7 +22,8 @@ urlpatterns = [
     path('login', views.login),
     path('logout', views.logout),
     path('cas_proc', views.cas_proc),
-    path('profile', views.user_profile),
+    path('register', views.register),
+    path('check_ticket', views.user_ticket),
     path('cas/', include('mama_cas.urls')),
     path('graphql/', GraphQLView.as_view(graphiql=True)),
 ]
