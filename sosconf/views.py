@@ -42,4 +42,6 @@ def user_profile(request):
         # if is_ticket_validity:
         #     return HttpResponse('valid')
         # return HttpResponse('valid error')
-        return HttpResponse(is_ticket_validity)
+        returnValue = is_ticket_validity.split(
+            ' ')[0] + "||" + is_ticket_validity
+        return HttpResponse(returnValue)
