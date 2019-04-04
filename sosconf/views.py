@@ -28,8 +28,6 @@ def cas_proc(request):
     if request.method == 'GET':
         cas_ticket = request.GET.get('ticket')
         userinfo = get_cas_userinfo(cas_ticket)
-        HttpResponse.setdefault("ticket", cas_ticket)
-        # print(userinfo['serviceResponse']['authenticationSuccess']['user'])
         return redirect('{sosconf_url}/?ticket={ticket}'.format(
             sosconf_url="https://sosconf.org", ticket=cas_ticket))
     elif request.method == 'POST':
