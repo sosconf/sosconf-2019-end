@@ -28,7 +28,6 @@ def cas_proc(request):
     if request.method == 'GET':
         cas_ticket = request.GET.get('ticket')
         userinfo = get_cas_userinfo(cas_ticket)
-        # print(userinfo['serviceResponse']['authenticationSuccess']['user'])
         return redirect('{sosconf_url}/?ticket={ticket}'.format(
             sosconf_url="https://sosconf.org", ticket=cas_ticket))
     elif request.method == 'POST':
@@ -45,6 +44,6 @@ def user_ticket(request):
     if request.method == 'GET':
         cas_ticket = request.GET.get('ticket')
         is_ticket_validity = is_cas_login(cas_ticket)
-        if is_ticket_validity:
+        if is_ticket_validity[0]:
             return HttpResponse('valid')
         return HttpResponse('valid error')

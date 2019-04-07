@@ -1,3 +1,8 @@
+import requests
+import urllib.parse
+import json
+
+
 def get_cas_userinfo(login_ticket: str,
                      cas_url='https://my.hexang.com/cas',
                      verify_url='http://api.sosconf.org/cas_proc'):
@@ -12,8 +17,6 @@ def get_cas_userinfo(login_ticket: str,
 
     :return: userinfo_json
     """
-    import requests
-    import urllib.parse
     service_encode = urllib.parse.urlencode({'service': verify_url})
     url = '{cas_url}/serviceValidate?{service_encode}&ticket={ticket}&format=json'.format(
         cas_url=cas_url, service_encode=service_encode, ticket=login_ticket)
@@ -28,10 +31,8 @@ def is_cas_login(login_ticket: str, cas_url='https://my.hexang.com/cas'):
 
     :param cas_url: cas认证接口地址
 
-    :return: yes username or no username
+    :return: yes username or no
     """
-    import requests
-    import urllib.parse
     service_url = 'http://api.sosconf.org/cas_proc'
     service_encode = urllib.parse.urlencode({'service': service_url})
     url = '{cas_url}/validate?{service_encode}&ticket={ticket}'.format(
@@ -41,5 +42,35 @@ def is_cas_login(login_ticket: str, cas_url='https://my.hexang.com/cas'):
 
     if len(is_login) > 1:
         if 'yes' in str(is_login)[:4]:
-            return True
-    return False
+            return (True, str(is_login)[4:-1])
+    return (False)
+
+
+def request_photo_url(username, event="download"):
+    """
+    同AWS LAMBDA通讯, 获得用户头像的下载/上传地址.
+
+    :param username: 用户名
+
+    :param event: 请求事件(download/update)
+
+    :return: url (avatar url)
+    """
+
+    service_url = 'https://adur8jfkj8.execute-api.ap-northeast-1.amazonaws.com/product/user-photo'
+
+    post_json = {
+        "event": {
+            "event": event,
+            "username": username,
+            "endpoint": "avatar"
+        }
+    }
+
+    result = requests.request(
+        'POST', service_url, data=json.dumps(post_json)).text
+
+    if json.loads(result)["err"] == True:
+        return json.loads(result)["event_url"]
+    else:
+        return "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png"
