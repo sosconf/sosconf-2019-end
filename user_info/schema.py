@@ -2,6 +2,7 @@ import graphene
 import sys
 sys.path.append('..')
 from sosconf.utils import is_cas_login
+from sosconf.utils import request_photo_url
 
 
 class profileSchema(graphene.ObjectType):
@@ -69,17 +70,17 @@ class Query(graphene.ObjectType):
 
     def resolve_userProfile(self, info, ticket):
         # TODO 增加根据ticket得到相关用户信息的逻辑
-        if is_cas_login(ticket):
+        resultBool_username = is_cas_login(ticket)
+        if resultBool_username[0]:
             return profileSchema(
-                userId=ticket,
+                userId=resultBool_username[1],
                 userSex="male",
-                nickname='Cat.1',
+                nickname=resultBool_username[1],
                 groupKind="Tech",
                 skill="Coding",
-                userPhoto=
-                "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png",
+                userPhoto=request_photo_url(resultBool_username[1]),
                 lang="EN",
-                email='cat@gansi.me',
+                email='hi@sosconf.org',
                 description='A good boy!',
                 err="Success",
                 status=True)

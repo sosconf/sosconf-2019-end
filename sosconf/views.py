@@ -44,6 +44,6 @@ def user_ticket(request):
     if request.method == 'GET':
         cas_ticket = request.GET.get('ticket')
         is_ticket_validity = is_cas_login(cas_ticket)
-        if is_ticket_validity:
+        if is_ticket_validity[0]:
             return HttpResponse('valid')
         return HttpResponse('valid error')
