@@ -43,7 +43,7 @@ def is_cas_login(login_ticket: str, cas_url='https://my.hexang.com/cas'):
     if len(is_login) > 1:
         if 'yes' in str(is_login)[:4]:
             return (True, str(is_login)[4:-1])
-    return (False)
+    return (False, "catone")
 
 
 def request_photo_url(username, event="download"):
@@ -66,11 +66,18 @@ def request_photo_url(username, event="download"):
             "endpoint": "avatar"
         }
     }
-
-    result = requests.request(
-        'POST', service_url, data=json.dumps(post_json)).text
-
-    if json.loads(result)["err"] == True:
-        return json.loads(result)["event_url"]
-    else:
+    try:
+        result = requests.request(
+            'POST', service_url, data=json.dumps(post_json)).text
+    except:
         return "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png"
+    else:
+        if 'err' in json.loads(result).keys() == True:
+            return json.loads(result)["event_url"]
+        else:
+            return "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png"
+
+
+# if __name__ == '__main__':
+#     print(is_cas_login("sad"))
+#     print(request_photo_url("catone"))
