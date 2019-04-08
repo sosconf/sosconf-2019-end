@@ -15,7 +15,7 @@ class profileSchema(graphene.ObjectType):
     userPhoto = graphene.String()
     email = graphene.String()
     description = graphene.String()
-    status = graphene.String()
+    status = graphene.Boolean()
     err = graphene.String()
 
 
