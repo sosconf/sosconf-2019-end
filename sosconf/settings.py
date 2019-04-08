@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'mama_cas',
     'sslserver',  # https support
     'graphene_django',
-    'user_info'
+    'user_info',
+    'corsheaders'
 ]
 
 GRAPHENE = {'SCHEMA': 'sosconf.schema.schema'}
@@ -59,7 +60,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+if DEBUG:
+    CORS_ORIGIN_ALLOW_ALL = True
+else:
+    CORS_ORIGIN_WHITELIST = ('sosconf.org', 'api.sosconf.org')
 
 MAMA_CAS_SERVICES = [
     {

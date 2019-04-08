@@ -72,7 +72,6 @@ def request_photo_url(username, event="download"):
     except:
         return "http://www.liberaldictionary.com/wp-content/uploads/2018/11/test-1.png"
     else:
-        print(json.loads(result))
         if 'err' in json.loads(result).keys():
             return json.loads(result)["event_url"]
         else:
