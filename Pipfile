@@ -13,6 +13,7 @@ requests = "*"
 graphene = "*"
 graphene-django = "*"
 pymysql = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.6"

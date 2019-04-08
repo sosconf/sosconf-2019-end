@@ -5,25 +5,37 @@ services:
   - docker
 
 env:
-  - IMAGE_NAME=catone/sosconf:end
+  - IMAGE_NAME_END=catone/sosconf:end
+  - IMAGE_NAME_NGINX=catone/sosconf:nginx-end
 
 script:
-  - docker pull "$IMAGE_NAME" || true
-  - docker build --cache-from "$IMAGE_NAME"
+  - docker pull "$IMAGE_NAME_END" || true
+  - docker pull "$IMAGE_NAME_NGINX" || true
+  - docker build --cache-from "$IMAGE_NAME_END"
       --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
       --build-arg VCS_REF="$TRAVIS_COMMIT"
-      -t "build/$IMAGE_NAME" -f ./Dockerfile .
-  - docker run -d -P --name temp "build/$IMAGE_NAME"
+      -t "build/$IMAGE_NAME_END" -f ./Dockerfile .
+  - docker build --cache-from "$IMAGE_NAME_NGINX"
+      --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+      --build-arg VCS_REF="$TRAVIS_COMMIT"
+      -t "build/$IMAGE_NAME_NGINX" -f ./Dockerfile.nginx .
+  - docker run -d -P --name temp "build/$IMAGE_NAME_END"
   - docker rm -f temp || true
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD_SECURE";
-      docker tag "build/$IMAGE_NAME" "$IMAGE_NAME";
-      docker push "$IMAGE_NAME";
+      docker tag "build/$IMAGE_NAME_NGINX" "$IMAGE_NAME_NGINX";
+      docker tag "build/$IMAGE_NAME_END" "$IMAGE_NAME_END";
+      docker push "$IMAGE_NAME_END";
+      docker push "$IMAGE_NAME_NGINX";
+
     fi
   - if [[ -n "$TRAVIS_TAG" ]]; then
       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD_SECURE";
-      docker tag "build/$IMAGENAME" "$IMAGENAME:$TRAVIS_TAG";
-      docker push "$IMAGE_NAME:$TRAVIS_TAG";
+      docker tag "build/$IMAGE_NAME_NGINX" "$IMAGE_NAME_NGINX:$TRAVIS_TAG";
+      docker tag "build/$IMAGE_NAME_END" "$IMAGE_NAME_END:$TRAVIS_TAG";
+      docker push "$IMAGE_NAME_END:$TRAVIS_TAG";
+      docker push "$IMAGE_NAME_NGINX:$TRAVIS_TAG";
+
     fi
