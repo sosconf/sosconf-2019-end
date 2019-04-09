@@ -65,6 +65,9 @@ MIDDLEWARE = [
 
 if DEBUG:
     CORS_ORIGIN_ALLOW_ALL = True
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_ORIGIN_WHITELIST = ('*')
+
 else:
     CORS_ORIGIN_WHITELIST = ('sosconf.org', 'api.sosconf.org')
 
