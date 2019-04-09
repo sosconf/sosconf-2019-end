@@ -4,11 +4,11 @@ sudo: required
 services:
   - docker
 
-env:
-  - IMAGE_NAME_END=catone/sosconf:end
-  - IMAGE_NAME_NGINX=catone/sosconf:nginx-end
 
 script:
+  - export IMAGE_NAME_END=catone/sosconf:end
+  - export IMAGE_NAME_NGINX=catone/sosconf:nginx-end
+
   - docker pull "$IMAGE_NAME_END" || true
   - docker pull "$IMAGE_NAME_NGINX" || true
   - docker build --cache-from "$IMAGE_NAME_END"
