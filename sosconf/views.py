@@ -21,6 +21,10 @@ def logout(request):
     cas_url = 'https://my.hexang.com/cas'
     return redirect('{cas_url}/logout'.format(cas_url=cas_url))
 
+@require_http_methods(['GET'])
+def hello_world(request):
+    return HttpResponse('hello world!')
+
 
 @require_http_methods(['GET', 'POST'])
 def cas_proc(request):
