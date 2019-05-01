@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vt970^4f1kxax-y)l5#051r0_m4qg^v8m^fnzfw70hxc^-h%o@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '*',
@@ -63,12 +63,16 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-if DEBUG:
-    CORS_ORIGIN_ALLOW_ALL = True
-    CORS_ALLOW_CREDENTIALS = True
-    CORS_ORIGIN_WHITELIST = ('*')
-else:
-    CORS_ORIGIN_WHITELIST = ('sosconf.org', 'api.sosconf.org')
+# if DEBUG:
+#     CORS_ORIGIN_ALLOW_ALL = True
+#     CORS_ALLOW_CREDENTIALS = True
+#     CORS_ORIGIN_WHITELIST = ('*')
+# else:
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ('*')
+# else:  
+#     CORS_ORIGIN_WHITELIST = ('sosconf.org', 'api.sosconf.org', 'k8s.front.sosconf.org', 'k8s.end.sosconf.org')
 
 MAMA_CAS_SERVICES = [
     {
