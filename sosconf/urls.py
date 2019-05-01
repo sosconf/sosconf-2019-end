@@ -19,6 +19,7 @@ from graphene_django.views import GraphQLView
 from . import views, schema
 
 urlpatterns = [
+    path('/', views.hello_world),
     path('login', views.login),
     path('logout', views.logout),
     path('cas_proc', views.cas_proc),
